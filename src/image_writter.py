@@ -119,15 +119,6 @@ class ImageWritter:
 
         print(image_y)
 
-        draw.text(
-            (x, y + 2000),
-            self.wrap_text_center(translation_text),
-            font=self.font,
-            fill="white",
-            anchor="mm",
-            align="center",
-        )
-
         image.save("output/background.png")
 
     def center_align(self, text: str) -> str:
