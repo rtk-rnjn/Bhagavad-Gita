@@ -154,8 +154,8 @@ class Verse:
 
     def get_translation(self, *, language: LANGUAGES) -> Translation | None:
         mapper = {
-            "hindi": 1,
-            "english": 2,
+            "hindi": 2,
+            "english": 1,
             "sanskrit": 3,
         }
         return self._translations.get(mapper[language], None)
