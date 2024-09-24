@@ -13,17 +13,26 @@ class ImageWritter:
     def __init__(self) -> None:
         self.font = ImageFont.truetype(FONT, 31)
 
-    def write(self, *, chapter_number: int, verse_number: int, language: str, text_wrap: bool = True) -> None:
-        translation = GEETA.search(chapter_number=chapter_number, verse_number=verse_number, language=language)
+    def write(
+        self,
+        *,
+        chapter_number: int,
+        verse_number: int,
+        language: str,
+        text_wrap: bool = True,
+    ) -> None:
+        translation = GEETA.search(
+            chapter_number=chapter_number, verse_number=verse_number, language=language
+        )
 
         if translation is None:
             return
-        
+
         verse = translation.verse
 
         if verse is None:
             return
-        
+
         image = Image.open(self.TEMPLATE_IMAGE)
         draw = ImageDraw.Draw(image)
 
@@ -39,8 +48,7 @@ class ImageWritter:
 
         image.save(f"output/{chapter_number}_{verse_number}_{language}.png")
         # TODO
-        
-    
+
     def wrap_text(self, text: str, width: int = 60) -> str:
         words = text.split()
         lines = []
@@ -52,7 +60,7 @@ class ImageWritter:
             else:
                 lines.append(" ".join(line))
                 line = [word]
-        
+
         lines.append(" ".join(line))
 
         return "\n".join(lines)

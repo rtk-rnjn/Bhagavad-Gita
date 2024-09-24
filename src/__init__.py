@@ -45,7 +45,7 @@ class Chapter:
         name_meaning: str,
         name_translation: str,
         name_transliterated: str,
-        verses_count: int
+        verses_count: int,
     ):
         self.id = id
         self.chapter_number = chapter_number
@@ -64,7 +64,7 @@ class Chapter:
     @property
     def verses(self) -> list[Verse]:
         return self._verses
-    
+
     @verses.setter
     def verses(self, value: list[Verse]) -> None:
         self._verses = value
@@ -102,7 +102,7 @@ class Translation:
     @property
     def verse(self) -> Verse | None:
         return self._verse
-    
+
     @verse.setter
     def verse(self, value: Verse) -> None:
         self._verse = value
@@ -144,7 +144,7 @@ class Verse:
     @property
     def chapter(self) -> Chapter | None:
         return self._chapter
-    
+
     @chapter.setter
     def chapter(self, value: Chapter) -> None:
         self._chapter = value
@@ -210,12 +210,16 @@ class Geeta:
     def set_chapters(self) -> None:
         for verse in self.verses:
             verse.chapter = self.chapters[verse.chapter_id - 1]
-    
+
     def set_verses(self) -> None:
         for chapter in self.chapters:
-            chapter.verses = [verse for verse in self.verses if verse.chapter_id == chapter.id]
+            chapter.verses = [
+                verse for verse in self.verses if verse.chapter_id == chapter.id
+            ]
 
-    def search(self, *, chapter_number: int, verse_number: int, language: LANGUAGES) -> Translation | None:
+    def search(
+        self, *, chapter_number: int, verse_number: int, language: LANGUAGES
+    ) -> Translation | None:
         return next(
             (
                 verse.get_translation(language=language)
@@ -225,5 +229,6 @@ class Geeta:
             ),
             None,
         )
+
 
 GEETA = Geeta()
